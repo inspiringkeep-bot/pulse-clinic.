@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse Health Clinic | Madhapur</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        :root {
+            --primary-teal: #008080;
+            --secondary-light: #e6f2f2;
+            --dark-text: #2c3e50;
+            --white: #ffffff;
+            --border-color: #cccccc;
+            --button-hover: #006666;
+            --star-color: #f1c40f;
+        }
+
+        body {
+            background-color: var(--secondary-light);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .top-bar {
+            background-color: var(--primary-teal);
+            color: var(--white);
+            text-align: center;
+            padding: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        header {
+            background-color: var(--white);
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-teal);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        header h1 {
+            color: var(--primary-teal);
+            font-size: 26px;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 20px 10px;
+            background-color: var(--secondary-light);
+            border-radius: 6px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-teal);
+        }
+        .hero h2 {
+            color: var(--primary-teal);
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+        .hero p {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .section-title {
+            color: var(--primary-teal);
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--secondary-light);
+            padding-bottom: 5px;
+            font-weight: 700;
+        }
+
+        /* --- Doctors Section --- */
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .doc-card {
+            background: var(--secondary-light);
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #d0eae0;
+        }
+        .doc-card h4 {
+            color: var(--primary-teal);
+            font-size: 14px;
+        }
+        .doc-card p {
+            font-size: 12px;
+            color: #555;
+        }
+
+        /* --- Interactive Image Gallery --- */
+        .carousel-container {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .main-display-box {
+            width: 100%;
+            height: 340px;
+            background-color: #f9f9f9;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .main-display-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+        .thumbnails-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+        .thumb-box {
+            aspect-ratio: 4/3;
+            background-color: #e0e0e0;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .thumb-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .thumb-box.active {
+            border-color: var(--primary-teal);
+        }
+
+        /* --- Service Flyer Displays --- */
+        .flyers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .flyer-card {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fafafa;
+        }
+        .flyer-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .flyer-caption {
+            padding: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            background: var(--secondary-light);
+            color: var(--primary-teal);
+        }
+
+        /* --- Google Maps --- */
+        .map-container {
+            width: 100%;
+            height: 250px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- Appointment Form Layout --- */
+        .appointment-box h3 {
+            color: var(--primary-teal);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .form-group label span {
+            color: red;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+        .form-control:focus {
+            border-color: var(--primary-teal);
+        }
+        textarea.form-control {
+            resize: vertical;
+            height: 80px;
+        }
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary-teal);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-submit:hover {
+            background-color: var(--button-hover);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--dark-text);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            font-size: 13px;
+        }
+        .footer-info h4 {
+            color: #00ffff;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        .footer-info p {
+            margin-bottom: 6px;
+            color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        📞 Quick Booking Helpline: 7396639211
+    </div>
+
+    <header>
+        <h1>PULSE HEALTH CLINIC</h1>
+    </header>
+
+    <div class="container">
+
+        <div class="hero">
+            <h2>Your Trusted Healthcare Partner</h2>
+            <p>Skin, Hair, General Health & Surgical Treatment</p>
+        </div>
+
+        <!-- Clinic Image Gallery Section -->
+        <h3 class="section-title">Clinic Gallery</h3>
+        <div class="carousel-container">
+            <div class="main-display-box">
+                <!-- Starts with the frontview picture -->
+                <img id="main-gallery-view" src="frontview.png" alt="Pulse Health Clinic Front View">
+            </div>
+            <div class="thumbnails-grid">
+                <div class="thumb-box active" onclick="updateGallery('frontview.png', this)">
+                    <img src="frontview.png" alt="Front View Thumbnail">
+                </div>
+                <div class="thumb-box" onclick="updateGallery('interior.png', this)">
+                    <img src="interior.png" alt="Interior Thumbnail">
+                </div>
+                <div class="thumb-box" onclick="updateGallery('doctor-desk.png', this)">
+                    <img src="doctor-desk.png" alt="Doctor Desk Thumbnail">
+                </div>
+                <div class="thumb-box" onclick="updateGallery('surgical-info.png', this)">
+                    <img src="surgical-info.png" alt="Surgical Flyer Thumbnail">
+                </div>
+                <div class="thumb-box" onclick="updateGallery('skin-info.png', this)">
+                    <img src="skin-info.png" alt="Skin Care Flyer Thumbnail">
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-title">Our Medical Specialists</h3>
+        <div class="doctors-grid">
+            <div class="doc-card">
+                <h4>Dr. G. Vijay Kumar</h4>
+                <p>MBBS, MS - Gen. Surgery<br>General Surgeon</p>
+            </div>
+            <div class="doc-card">
+                <h4>Dr. Y. Devi Priya</h4>
+                <p>MBBS, FEM, FAM (MRCEM)<br>Aesthetic Consultant</p>
+            </div>
+        </div>
+
+        <!-- Treatment Information Brochures Section -->
+        <h3 class="section-title">Specialized Treatment Medical Programs</h3>
+        <div class="flyers-grid">
+            <div class="flyer-card">
+                <img src="surgical-info.png" alt="Surgical Treatment Flyer">
+                <div class="flyer-caption">Surgical Care Division</div>
+            </div>
+            <div class="flyer-card">
+                <img src="skin-info.png" alt="Aesthetics Skin and Hair Flyer">
+                <div class="flyer-caption">Skin & Hair Division</div>
+            </div>
+        </div>
+
+        <h3 class="section-title">Find Our Location</h3>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.2235281488667!2d78.38914619999999!3d17.4489626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb917be60dd65f%3A0x64e8e19a27f6a7fe!2sPulse%20Health%20Clinic!5e0!3m2!1sen!2sin!4v1719921450000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <!-- Appointment Form Container -->
+        <div class="appointment-box">
+            <h3>Book Your Appointment Now</h3>
+            <form action="https://api.whatsapp.com/send" method="GET" target="_blank" onsubmit="return routeToWhatsApp(this);">
+                <input type="hidden" name="phone" value="917396639211">
+                <input type="hidden" name="text" id="whatsapp-compiled-text">
+                
+                <div class="form-group">
+                    <label>Patient Name <span>*</span></label>
+                    <input type="text" id="form-name" class="form-control" placeholder="Full Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number <span>*</span></label>
+                    <input type="tel" id="form-phone" class="form-control" placeholder="Mobile Number" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Message / Symptoms</label>
+                    <textarea id="form-message" class="form-control" placeholder="Write your message or symptoms here..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Book an Appointment via WhatsApp</button>
+            </form>
+        </div>
+
+        <footer>
+            <div class="footer-info">
+                <h4>📍 Clinic Address</h4>
+                <p>Ayyappa Society, G2, Khanamet, Chanda Naik Nagar, Madhapur, tanda, Hyderabad, Telangana 500081</p>
+                
+                <h4 style="margin-top: 12px;">⏰ Operational Consultation Hours</h4>
+                <p>Morning Slot: 10:00 AM - 1:30 PM <br> Evening Slot: 5:00 PM - 10:30 PM</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Dynamic JavaScript gallery swap function
+        function updateGallery(imageSrc, thumbnailElement) {
+            document.getElementById('main-gallery-view').src = imageSrc;
+            
+            let thumbs = document.querySelectorAll('.thumb-box');
+            thumbs.forEach(t => t.classList.remove('active'));
+            
+            thumbnailElement.classList.add('active');
+        }
+
+        function routeToWhatsApp(formElement) {
+            let name = document.getElementById('form-name').value;
+            let phone = document.getElementById('form-phone').value;
+            let msg = document.getElementById('form-message').value || "General Checkup Request";
+
+            let template = `Hello Pulse Health Clinic,%0A%0AI want to book an appointment via your website:%0A• *Name:* ${encodeURIComponent(name)}%0A• *Phone:* ${encodeURIComponent(phone)}%0A• *Message:* ${encodeURIComponent(msg)}`;
+            
+            document.getElementById('whatsapp-compiled-text').value = template.replace(/%20/g, " ");
+            return true;
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse Health Clinic | Madhapur</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        :root {
+            --primary-teal: #008080;
+            --secondary-light: #e6f2f2;
+            --dark-text: #2c3e50;
+            --white: #ffffff;
+            --border-color: #cccccc;
+            --button-hover: #006666;
+            --star-color: #f1c40f;
+        }
+
+        body {
+            background-color: var(--secondary-light);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .top-bar {
+            background-color: var(--primary-teal);
+            color: var(--white);
+            text-align: center;
+            padding: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        header {
+            background-color: var(--white);
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-teal);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        header h1 {
+            color: var(--primary-teal);
+            font-size: 26px;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 20px 10px;
+            background-color: var(--secondary-light);
+            border-radius: 6px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-teal);
+        }
+        .hero h2 {
+            color: var(--primary-teal);
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+        .hero p {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .section-title {
+            color: var(--primary-teal);
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--secondary-light);
+            padding-bottom: 5px;
+            font-weight: 700;
+        }
+
+        /* --- Doctors Section --- */
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .doc-card {
+            background: var(--secondary-light);
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #d0eae0;
+        }
+        .doc-card h4 {
+            color: var(--primary-teal);
+            font-size: 14px;
+        }
+        .doc-card p {
+            font-size: 12px;
+            color: #555;
+        }
+
+        /* --- Interactive Image Gallery --- */
+        .carousel-container {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .main-display-box {
+            width: 100%;
+            height: 340px;
+            background-color: #f9f9f9;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .main-display-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+        .thumbnails-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+        .thumb-box {
+            aspect-ratio: 4/3;
+            background-color: #e0e0e0;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .thumb-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .thumb-box.active {
+            border-color: var(--primary-teal);
+        }
+
+        /* --- Service Flyer Displays --- */
+        .flyers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .flyer-card {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fafafa;
+        }
+        .flyer-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .flyer-caption {
+            padding: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            background: var(--secondary-light);
+            color: var(--primary-teal);
+        }
+
+        /* --- Google Maps --- */
+        .map-container {
+            width: 100%;
+            height: 250px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- Appointment Form Layout --- */
+        .appointment-box h3 {
+            color: var(--primary-teal);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .form-group label span {
+            color: red;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+        .form-control:focus {
+            border-color: var(--primary-teal);
+        }
+        textarea.form-control {
+            resize: vertical;
+            height: 80px;
+        }
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary-teal);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-submit:hover {
+            background-color: var(--button-hover);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--dark-text);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            font-size: 13px;
+        }
+        .footer-info h4 {
+            color: #00ffff;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        .footer-info p {
+            margin-bottom: 6px;
+            color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        📞 Quick Booking Helpline: 7396639211
+    </div>
+
+    <header>
+        <h1>PULSE HEALTH CLINIC</h1>
+    </header>
+
+    <div class="container">
+
+        <div class="hero">
+            <h2>Your Trusted Healthcare Partner</h2>
+            <p>Skin, Hair, General Health & Surgical Treatment</p>
+        </div>
+
+        <!-- Clinic Image Gallery Section -->
+        <h3 class="section-title">Clinic Gallery</h3>
+        <div class="carousel-container">
+            <div class="main-display-box">
+                <!-- Starts with the frontview picture -->
+                <img id="main-gallery-view" src="frontview.png" alt="Pulse Health Clinic Front View">
+            </div>
+            <div class="thumbnails-grid">
+                <div class="thumb-box active" onclick="updateGallery('frontview.png', this)">
+                    <img src="frontview.png" alt="Front View Thumbnail">
+                </div>
+                <div class="thumb-box" onclick="updateGallery('interior.png', this)">
+                    <img src="interior.png" alt="Interior Thumbnail">
+                </div>
+                <div class="thumb-box" onclick="updateGallery('doctor-desk.png', this)">
+                    <img src="doctor-desk.png" alt="Doctor Desk Thumbnail">
+                </div>
+                <div class="thumb-box" onclick="updateGallery('surgical-info.png', this)">
+                    <img src="surgical-info.png" alt="Surgical Flyer Thumbnail">
+                </div>
+                <div class="thumb-box" onclick="updateGallery('skin-info.png', this)">
+                    <img src="skin-info.png" alt="Skin Care Flyer Thumbnail">
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-title">Our Medical Specialists</h3>
+        <div class="doctors-grid">
+            <div class="doc-card">
+                <h4>Dr. G. Vijay Kumar</h4>
+                <p>MBBS, MS - Gen. Surgery<br>General Surgeon</p>
+            </div>
+            <div class="doc-card">
+                <h4>Dr. Y. Devi Priya</h4>
+                <p>MBBS, FEM, FAM (MRCEM)<br>Aesthetic Consultant</p>
+            </div>
+        </div>
+
+        <!-- Treatment Information Brochures Section -->
+        <h3 class="section-title">Specialized Treatment Medical Programs</h3>
+        <div class="flyers-grid">
+            <div class="flyer-card">
+                <img src="surgical-info.png" alt="Surgical Treatment Flyer">
+                <div class="flyer-caption">Surgical Care Division</div>
+            </div>
+            <div class="flyer-card">
+                <img src="skin-info.png" alt="Aesthetics Skin and Hair Flyer">
+                <div class="flyer-caption">Skin & Hair Division</div>
+            </div>
+        </div>
+
+        <h3 class="section-title">Find Our Location</h3>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.2235281488667!2d78.38914619999999!3d17.4489626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb917be60dd65f%3A0x64e8e19a27f6a7fe!2sPulse%20Health%20Clinic!5e0!3m2!1sen!2sin!4v1719921450000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <!-- Appointment Form Container -->
+        <div class="appointment-box">
+            <h3>Book Your Appointment Now</h3>
+            <form action="https://api.whatsapp.com/send" method="GET" target="_blank" onsubmit="return routeToWhatsApp(this);">
+                <input type="hidden" name="phone" value="917396639211">
+                <input type="hidden" name="text" id="whatsapp-compiled-text">
+                
+                <div class="form-group">
+                    <label>Patient Name <span>*</span></label>
+                    <input type="text" id="form-name" class="form-control" placeholder="Full Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number <span>*</span></label>
+                    <input type="tel" id="form-phone" class="form-control" placeholder="Mobile Number" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Message / Symptoms</label>
+                    <textarea id="form-message" class="form-control" placeholder="Write your message or symptoms here..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Book an Appointment via WhatsApp</button>
+            </form>
+        </div>
+
+        <footer>
+            <div class="footer-info">
+                <h4>📍 Clinic Address</h4>
+                <p>Ayyappa Society, G2, Khanamet, Chanda Naik Nagar, Madhapur, tanda, Hyderabad, Telangana 500081</p>
+                
+                <h4 style="margin-top: 12px;">⏰ Operational Consultation Hours</h4>
+                <p>Morning Slot: 10:00 AM - 1:30 PM <br> Evening Slot: 5:00 PM - 10:30 PM</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Dynamic JavaScript gallery swap function
+        function updateGallery(imageSrc, thumbnailElement) {
+            document.getElementById('main-gallery-view').src = imageSrc;
+            
+            let thumbs = document.querySelectorAll('.thumb-box');
+            thumbs.forEach(t => t.classList.remove('active'));
+            
+            thumbnailElement.classList.add('active');
+        }
+
+        function routeToWhatsApp(formElement) {
+            let name = document.getElementById('form-name').value;
+            let phone = document.getElementById('form-phone').value;
+            let msg = document.getElementById('form-message').value || "General Checkup Request";
+
+            let template = `Hello Pulse Health Clinic,%0A%0AI want to book an appointment via your website:%0A• *Name:* ${encodeURIComponent(name)}%0A• *Phone:* ${encodeURIComponent(phone)}%0A• *Message:* ${encodeURIComponent(msg)}`;
+            
+            document.getElementById('whatsapp-compiled-text').value = template.replace(/%20/g, " ");
+            return true;
+        }
+    </script>
+</body>
+</html>
+
